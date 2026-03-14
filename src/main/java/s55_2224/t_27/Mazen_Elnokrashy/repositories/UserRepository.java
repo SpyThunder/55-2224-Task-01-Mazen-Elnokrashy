@@ -46,7 +46,9 @@ public class UserRepository {
         return users.stream().filter(user -> user.getUsername().equalsIgnoreCase(name)).findFirst();
     }
     public User save(User user) {
-        user.setId(UUID.randomUUID().toString());
+        if (user.getId() == null || user.getId().isEmpty()) {
+            user.setId(UUID.randomUUID().toString());
+        }
         users.add(user);
         try{
             new ObjectMapper().writeValue(jsonFile, users);

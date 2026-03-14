@@ -1,5 +1,6 @@
 package s55_2224.t_27.Mazen_Elnokrashy.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import s55_2224.t_27.Mazen_Elnokrashy.services.NoteService;
 import s55_2224.t_27.Mazen_Elnokrashy.models.Note;
@@ -39,12 +40,14 @@ public class NoteController {
     }
 
     @GetMapping("/search")
-    public List<Note> getNotesByTitle(@RequestParam String title) {
+    public ResponseEntity<Note> getNotesByTitle(@RequestParam String title) {
         return noteService.getAllNotes().stream()
                 .filter(note -> note.getTitle()
                         .toLowerCase()
                         .contains(title.toLowerCase()))
-                .toList();
+                .findFirst()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

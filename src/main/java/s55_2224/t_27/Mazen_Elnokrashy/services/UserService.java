@@ -29,7 +29,15 @@ import s55_2224.t_27.Mazen_Elnokrashy.models.User;
             }
             return user;
         }
-
+        public Optional<User> getUserByUsername(String username) {
+            Optional<User> user = userRepository.findByUsername(username);
+            if(user.isEmpty()) {
+                throw new ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND,
+                        "User with username " + username + " not found");
+            }
+            return user;
+        }
         public User createUser(User user) {
             return userRepository.save(user);
         }
