@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/notes")
-class NoteController {
+public class NoteController {
     private final NoteService noteService;
 
     public NoteController(NoteService noteService) {

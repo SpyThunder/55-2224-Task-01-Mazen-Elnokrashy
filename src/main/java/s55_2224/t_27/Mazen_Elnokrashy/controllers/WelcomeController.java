@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/welcome")
-class WelcomeController {
+public class WelcomeController {
 
     @Value("${USER_NAME}")
     private String userName;
