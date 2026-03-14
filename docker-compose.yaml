@@ -1,0 +1,16 @@
+services:
+  notes-api:
+    # 1. Build from the local Dockerfile
+    build: .
+
+    # 2. Name the container as your ID_Container
+    container_name: 55-2224_container
+
+    # 3. Map host port (2224) to container port (8080)
+    ports:
+      - "2224:8080"
+
+    # 4. Set the environment variables with "Compose_" prefix
+    environment:
+      - USER_NAME=Compose_Mazen_Elnokrashy
+      - USER_ID=Compose_55_2224

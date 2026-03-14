@@ -1,6 +1,7 @@
 package s55_2224.t_27.Mazen_Elnokrashy.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,17 +21,19 @@ import s55_2224.t_27.Mazen_Elnokrashy.models.User;
         }
 
         public Optional<User> getUserById(String id) {
-            return userRepository.findById(id);
-        }
-
-        public Optional<User> getUserByUsername(String username) {
-            return userRepository.findByUsername(username);
+            Optional<User> user = userRepository.findById(id);
+            if(user.isEmpty()) {
+                throw new ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND,
+                        "User with id " + id + " not found");
+            }
+            return user;
         }
 
         public User createUser(User user) {
             return userRepository.save(user);
         }
-        public User updateUser(String id, User updated) {
+        public User updateUser(String id, User updated) throws ResponseStatusException {
             return userRepository.update(id, updated);
         }
 

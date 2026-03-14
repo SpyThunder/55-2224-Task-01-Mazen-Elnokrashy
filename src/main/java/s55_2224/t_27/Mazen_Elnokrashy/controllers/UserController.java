@@ -1,7 +1,9 @@
 package s55_2224.t_27.Mazen_Elnokrashy.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import s55_2224.t_27.Mazen_Elnokrashy.models.Note;
 import s55_2224.t_27.Mazen_Elnokrashy.services.NoteService;
 import s55_2224.t_27.Mazen_Elnokrashy.services.UserService;
@@ -21,7 +23,8 @@ class UserController {
     }
 
     @GetMapping("/{id}/notes")
-    public List<Note> getNotesByUserId(@PathVariable String id) {
+    public List<Note> getNotesByUserId(@PathVariable String id) throws ResponseStatusException
+    {
         return noteService.getNotesByUserId(id);
     }
 
@@ -31,7 +34,7 @@ class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable String id) {
+    public Optional<User> getUserById(@PathVariable String id) throws ResponseStatusException {
         return userService.getUserById(id);
     }
 
@@ -50,9 +53,13 @@ class UserController {
         userService.deleteUser(id);
     }
 
-    @GetMapping("/serch?username={username}")
-    public Optional<User> getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username.toLowerCase());
+    @GetMapping("/search")
+    public User getUserByUsername(@RequestParam String username) {
+        return userService.getAllUsers().stream()
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found"));
     }
 
 

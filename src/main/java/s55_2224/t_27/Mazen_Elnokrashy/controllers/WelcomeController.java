@@ -11,7 +11,7 @@ class WelcomeController {
 
     @Value("${USER_NAME}")
     private String userName;
-    @Value("${USER_ID}")
+    @Value("${ID}")
     private String userId;
 
     @GetMapping

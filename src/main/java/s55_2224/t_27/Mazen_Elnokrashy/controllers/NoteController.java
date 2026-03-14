@@ -38,7 +38,7 @@ class NoteController {
         return noteService.createNote(note);
     }
 
-    @GetMapping("/notes/search")
+    @GetMapping("/search")
     public List<Note> getNotesByTitle(@RequestParam String title) {
         return noteService.getAllNotes().stream()
                 .filter(note -> note.getTitle()
