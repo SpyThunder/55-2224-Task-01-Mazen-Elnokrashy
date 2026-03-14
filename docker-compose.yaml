@@ -13,4 +13,4 @@ services:
     # 4. Set the environment variables with "Compose_" prefix
     environment:
       - USER_NAME=Compose_Mazen_Elnokrashy
-      - USER_ID=Compose_55_2224
+      - ID=Compose_55_2224
