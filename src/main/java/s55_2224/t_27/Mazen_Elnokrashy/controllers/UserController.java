@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserController {
     private final NoteService noteService;
     private final UserService userService;
-    UserController(UserService userService, NoteService noteService) {
+    public UserController(UserService userService, NoteService noteService) {
         this.userService = userService;
         this.noteService = noteService;
     }
